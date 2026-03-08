@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <title>NIGHTWATCH - Radio Intercept Station</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="crt" class="crt">
+    <div id="screen">
+      <!-- Header Bar -->
+      <header id="header">
+        <div id="header-left">
+          <span class="classification">TOP SECRET // SIGINT</span>
+        </div>
+        <div id="header-center">
+          <span id="station-name">NSA LISTENING POST - WEST BERLIN</span>
+        </div>
+        <div id="header-right">
+          <span id="clock">OCT 16 1962 - 23:47:12</span>
+        </div>
+      </header>
+
+      <!-- Main Console -->
+      <div id="console">
+        <!-- Left Panel - Radio Controls -->
+        <aside id="radio-panel">
+          <div class="panel-title">RADIO CONTROLS</div>
+          <div id="freq-display">
+            <div class="freq-label">FREQUENCY (MHz)</div>
+            <div id="freq-value" title="Tap to type frequency">04.000</div>
+            <div id="freq-input-row" class="hidden">
+              <input type="text" id="freq-type-input" inputmode="decimal" pattern="[0-9.]*" placeholder="00.000" autocomplete="off">
+              <button id="freq-type-go" class="console-btn">SET</button>
+            </div>
+            <div id="freq-adjust">
+              <button id="freq-down-coarse" class="console-btn freq-btn" data-delta="-50">--</button>
+              <button id="freq-down" class="console-btn freq-btn" data-delta="-5">-</button>
+              <button id="freq-up" class="console-btn freq-btn" data-delta="5">+</button>
+              <button id="freq-up-coarse" class="console-btn freq-btn" data-delta="50">++</button>
+            </div>
+            <input type="range" id="freq-slider" min="3000" max="20000" value="4000" step="5">
+            <div class="freq-range">
+              <span>3.000</span>
+              <span>20.000</span>
+            </div>
+          </div>
+          <div id="signal-meter">
+            <div class="freq-label">SIGNAL STRENGTH</div>
+            <div id="signal-bars">
+              <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+              <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+              <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+            <div id="signal-label">NO SIGNAL</div>
+          </div>
+          <div id="radio-buttons">
+            <button id="btn-scan" class="console-btn">SCAN</button>
+            <button id="btn-lock" class="console-btn" disabled>LOCK</button>
+          </div>
+        </aside>
+
+        <!-- Center - Main Display -->
+        <main id="display">
+          <div id="display-header">
+            <span id="display-mode">STANDBY</span>
+            <span id="display-status"></span>
+          </div>
+          <div id="display-content">
+            <div id="output"></div>
+            <div id="typing-area" class="hidden">
+              <div id="transmission-text"></div>
+              <div id="word-buttons" class="hidden"></div>
+              <div id="capture-prompt">
+                <span class="prompt-label">CAPTURE&gt;</span>
+                <input type="text" id="capture-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+              </div>
+              <div id="capture-timer"></div>
+            </div>
+          </div>
+        </main>
+
+        <!-- Right Panel - Tools & Intel -->
+        <aside id="tools-panel">
+          <div class="panel-title">TOOLS</div>
+          <div id="tool-buttons">
+            <button id="btn-decode" class="console-btn" disabled>DECODE</button>
+            <button id="btn-log" class="console-btn">INTEL LOG</button>
+            <button id="btn-help" class="console-btn">HELP</button>
+          </div>
+          <div id="decode-controls" class="hidden">
+            <div class="freq-label">CIPHER TYPE</div>
+            <select id="cipher-select">
+              <option value="caesar">CAESAR SHIFT</option>
+              <option value="atbash">ATBASH</option>
+              <option value="number">NUMBER CODE</option>
+            </select>
+            <div id="caesar-controls">
+              <div class="freq-label">SHIFT VALUE</div>
+              <input type="range" id="shift-slider" min="1" max="25" value="1">
+              <div id="shift-value">1</div>
+            </div>
+            <button id="btn-apply-decode" class="console-btn">APPLY</button>
+            <div id="decode-preview"></div>
+          </div>
+          <div id="mission-tracker">
+            <div class="panel-title">MISSIONS</div>
+            <div id="mission-list"></div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Input Bar -->
+      <div id="input-bar">
+        <span class="prompt-symbol">&gt;</span>
+        <input type="text" id="command-input" placeholder="Type command or press HELP..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      </div>
+
+      <!-- CRT Custom Keyboard -->
+      <div id="crt-keyboard" class="hidden">
+        <div class="kb-row">
+          <button class="kb-key" data-key="Q">Q</button>
+          <button class="kb-key" data-key="W">W</button>
+          <button class="kb-key" data-key="E">E</button>
+          <button class="kb-key" data-key="R">R</button>
+          <button class="kb-key" data-key="T">T</button>
+          <button class="kb-key" data-key="Y">Y</button>
+          <button class="kb-key" data-key="U">U</button>
+          <button class="kb-key" data-key="I">I</button>
+          <button class="kb-key" data-key="O">O</button>
+          <button class="kb-key" data-key="P">P</button>
+        </div>
+        <div class="kb-row">
+          <button class="kb-key" data-key="A">A</button>
+          <button class="kb-key" data-key="S">S</button>
+          <button class="kb-key" data-key="D">D</button>
+          <button class="kb-key" data-key="F">F</button>
+          <button class="kb-key" data-key="G">G</button>
+          <button class="kb-key" data-key="H">H</button>
+          <button class="kb-key" data-key="J">J</button>
+          <button class="kb-key" data-key="K">K</button>
+          <button class="kb-key" data-key="L">L</button>
+        </div>
+        <div class="kb-row">
+          <button class="kb-key kb-key-wide" data-action="shift">SHIFT</button>
+          <button class="kb-key" data-key="Z">Z</button>
+          <button class="kb-key" data-key="X">X</button>
+          <button class="kb-key" data-key="C">C</button>
+          <button class="kb-key" data-key="V">V</button>
+          <button class="kb-key" data-key="B">B</button>
+          <button class="kb-key" data-key="N">N</button>
+          <button class="kb-key" data-key="M">M</button>
+          <button class="kb-key kb-key-wide" data-action="delete">DEL</button>
+        </div>
+        <div class="kb-row">
+          <button class="kb-key kb-key-space" data-action="space">SPACE</button>
+          <button class="kb-key kb-key-enter" data-action="enter">ENTER</button>
+        </div>
+      </div>
+    </div>
+    <!-- CRT Effects Overlay -->
+    <div class="scanlines"></div>
+    <div class="crt-flicker"></div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
